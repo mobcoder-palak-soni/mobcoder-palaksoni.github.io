@@ -1,37 +1,84 @@
-## Welcome to GitHub Pages
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AJAX-API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-You can use the [editor on GitHub](https://github.com/mobcoder-palak-soni/mobcoder-palaksoni.github.io/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+  
+  </head>
+  <body>
+    <h1 style="text-align: center">
+    API
+    </h1>
+    <table id="table1" class="table table-success"></table>
+    <button type="button" onclick="myFunction()" >Get</button>
+    <button type="button" onclick="myfunc()" >Post</button>
+    <button type="button" onclick="myfun1()" >PUT</button>
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+    <script>
+        function myFunction(){
+      $.ajax({
+          url: "http://dummy.restapiexample.com/api/v1/employees",
+          type : "GET",
+            success : function(data){
 
-```markdown
-Syntax highlighted code block
+                var A = "<tr><th>id</th><th>Employee Name</th><th>Employee Salary</th><th>Employee Age</th></tr>";
+                for( x=0;x<data.data.length;x++){
+                  
+                  
+    A += '<tr>';
+    A += '<td>'+ data.data[x].id + '</td><td>' + data.data[x].employee_name + '</td><td>' + data.data[x].employee_salary + '</td><td>' + data.data[x].employee_age + '</td>';
+    A += '</tr>';
+                        
+                }
+                $("#table1").append(A);
+          }
+      });
+        }
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+    function myfunc(){
+    let post = "PALAK SONI";
+   
+const url = "http://dummy.restapiexample.com/api/v1/create";
+let x = new XMLHttpRequest();
+x.open('POST',url , true);
+x.send(post);
+x.onload = function () {
+    if(x.status >=200&&x.status<300) {
+        console.log("Post successfully created!") ;
+    }
+}
+//x.send(post);
+ 
+}
 
-**Bold** and _Italic_ and `Code` text
+function myfun1(){
+    let PUT = "palak soni";
+   const url = "http://dummy.restapiexample.com/api/v1/update/21";
+   let x = new XMLHttpRequest();
+   x.open('PUT',url , true);
+   x.send(PUT);
+   x.onload = function () {
+       if(x.status >=200&&x.status<300) {
+           console.log("PUT successfully UPDATE!") ;
+       }
+   }
+//    x.send(post);
+    
+}
+    </script>
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mobcoder-palak-soni/mobcoder-palaksoni.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+</body>
+</html>
